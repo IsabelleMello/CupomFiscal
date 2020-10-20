@@ -1,4 +1,4 @@
-#Cupom Fiscal
+# Cupom Fiscal
 
 Após a totalização do valor da venda, o operador deve informar os dados de pagamento:
 
