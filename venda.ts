@@ -110,12 +110,29 @@ export class Venda {
         return troco.toString();
     }
 
+    public impostos(): string{
+        let impostoFederal: number = 7.54;
+        let impostoestadual: number = 4.81;
+
+        let valorTotalImpostoFederal: number = this.valorTotal() * (impostoFederal/100);
+        let valorTotalImpostoEstadual: number = this.valorTotal() * (impostoestadual/100);
+
+        return `Lei 12.741, Valor aprox., Imposto F=${valorTotalImpostoFederal.toFixed(2)} (7.54%), E=${valorTotalImpostoEstadual.toFixed(2)} (4.81%)`;
+
+    }
     public imprimir_cupom(): string{
         this.verificaCampoObrigatorio();
         let dadosLoja = this.loja.dados_loja();
         let dadosVenda = this.dados_venda();
         let total = this.valorTotal();
-        let cupom = `${dadosLoja}------------------------------\n${dadosVenda}\nCUPOM FISCAL\n${this.dadosItens()}------------------------------\nTOTAL R$ ${total.toFixed(2)}\nDinheiro ${this.valorPagamento.toFixed(2)}\nTroco R$ ${this.calcularTroco().toFixed(2)}`;
+        let cupom = `${dadosLoja}------------------------------
+${dadosVenda}
+CUPOM FISCAL
+${this.dadosItens()}------------------------------
+TOTAL R$ ${total.toFixed(2)}
+Dinheiro ${this.valorPagamento.toFixed(2)}
+Troco R$ ${this.calcularTroco().toFixed(2)}
+${this.impostos()}`;
 
 return cupom;
     }

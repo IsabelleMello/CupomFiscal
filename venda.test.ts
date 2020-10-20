@@ -115,7 +115,7 @@ const MENSAGEM_VALOR_PRODUTO = "Produto com valor unitário zero ou negativo";
 const MENSAGEM_VALIDA_PAGAMENTO = "Tipo de pagamento inválido";
 const MENSAGEM_TIPO_PAGAMENTO = "Operação inválida";
 
-const TEXTO_ESPERADO_CUPOM_COMPLETO = `Loja 1
+const TEXTO_ESPERADO_CUPOM_COMPLETO_COM_IMPOSTOS = `Loja 1
 Log 1, 10 C1
 Bai 1 - Mun 1 - E1
 CEP:11111-111 Tel (11) 1111-1111
@@ -130,7 +130,10 @@ ITEM CODIGO DESCRICAO QTD UN VL UNIT(R$) ST VL ITEM(R$)
 ------------------------------
 TOTAL R$ 74.50
 Dinheiro 100.00
-Troco R$ 25.50`
+Troco R$ 25.50
+Lei 12.741, Valor aprox., Imposto F=5.62 (7.54%), E=3.58 (4.81%)`
+
+
 
 
 let venda_sem_itens: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
@@ -265,6 +268,6 @@ test('Valida troco', () => {
 });
 
 
-test('Imprimir cupom', () => {
-    imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO, vendaTeste);
+test('Imprimir cupom com impostos', () => {
+    imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO_COM_IMPOSTOS, vendaTeste);
 });
