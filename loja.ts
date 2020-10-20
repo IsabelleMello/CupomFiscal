@@ -1,5 +1,7 @@
 import { Endereco } from "./endereco";
 import { Venda } from "./venda";
+import { Operador } from './operador';
+import { ImpressoraFiscal } from './impressoraFiscal';
 
 export class Loja {
 
@@ -10,7 +12,9 @@ export class Loja {
         public observacao: string, 
         public cnpj: string, 
         public inscricao_estadual: string,
-        public vendas: Array<Venda> = new Array<Venda>()) { }
+        public vendas: Array<Venda> = new Array<Venda>(),
+        public operador: Operador = new Operador(494715),
+        public impressoraFiscal: ImpressoraFiscal = new ImpressoraFiscal("\nSWEDA IF ST200", "01.00.05", "067", "SW031300000000045629")) { }
         
 
     public vender(loja: Loja, datahora: string, ccf: string, coo: string, tipoPagamento: string, valorPagamento: number): Venda{
@@ -19,6 +23,13 @@ export class Loja {
         return novaVenda;
     }    
         
+    public dadosFiscais(): string {
+        let dadosOperador: string = this.operador.dados_codigoOperador();
+        let dadosImpressora: string = this.impressoraFiscal.dados_ImpressoraFiscal();
+
+        return dadosOperador + dadosImpressora;
+
+    }
     public verificaCampoObrigatorio(): void {
   
         if (this.nome_loja == "")

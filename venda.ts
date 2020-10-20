@@ -2,6 +2,7 @@ import { Loja } from "./loja";
 import { ItemVenda } from "./itemVenda";
 import { Produto } from './produto';
 
+
 export class Venda {
 
     constructor(
@@ -120,6 +121,7 @@ export class Venda {
         return `Lei 12.741, Valor aprox., Imposto F=${valorTotalImpostoFederal.toFixed(2)} (7.54%), E=${valorTotalImpostoEstadual.toFixed(2)} (4.81%)`;
 
     }
+
     public imprimir_cupom(): string{
         this.verificaCampoObrigatorio();
         let dadosLoja = this.loja.dados_loja();
@@ -132,7 +134,8 @@ ${this.dadosItens()}------------------------------
 TOTAL R$ ${total.toFixed(2)}
 Dinheiro ${this.valorPagamento.toFixed(2)}
 Troco R$ ${this.calcularTroco().toFixed(2)}
-${this.impostos()}`;
+${this.impostos()}
+${this.loja.dadosFiscais()}`;
 
 return cupom;
     }
