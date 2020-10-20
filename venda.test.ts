@@ -6,7 +6,7 @@ import { Produto } from './produto';
 
 function verificaCampoObrigatorio(mensagemEsperada: string, venda: Venda) {
   try {
-    venda.dados_venda();
+    venda.dadosVenda();
   } catch (e) {
     expect(e.message).toBe(mensagemEsperada);
     }
@@ -83,20 +83,9 @@ const CODIGO4 = 4
 const TIPO_PAGAMENTO1 = "cartão de crédito"
 const TIPO_PAGAMENTO2 = "cartão de débito"
 const TIPO_PAGAMENTO3 = "dinheiro"
-
 const VALOR_PAGAMENTO = 100
 
 const DATAHORA = "25/11/2020 10:30:40"
-
-let produto: Produto = new Produto(
-  CODIGO1, 
-  DESCRICAO1, 
-  UNIDADE, 
-  VALOR_UNITARIO1, 
-  SUBSTITUICAO_TRIBUTARIA
-);
-
-
 
 let paramEndereco : Endereco = new Endereco(LOGRADOURO, NUMERO, COMPLEMENTO,
   BAIRRO, MUNICIPIO, ESTADO, CEP);
@@ -133,9 +122,6 @@ Dinheiro 100.00
 Troco R$ 25.50
 Lei 12.741, Valor aprox., Imposto F=5.62 (7.54%), E=3.58 (4.81%)`
 
-
-
-
 let venda_sem_itens: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
 
 let produto01: Produto = new Produto(
@@ -146,15 +132,8 @@ let produto01: Produto = new Produto(
   SUBSTITUICAO_TRIBUTARIA
 );
 
-let produto02: Produto = new Produto(
-  CODIGO2, 
-  DESCRICAO2, 
-  UNIDADE, 
-  VALOR_UNITARIO2, 
-  SUBSTITUICAO_TRIBUTARIA
-);
   
-let produto03: Produto = new Produto(
+let produto02: Produto = new Produto(
   CODIGO3, 
   DESCRICAO1, 
   UNIDADE, 
@@ -162,7 +141,7 @@ let produto03: Produto = new Produto(
   SUBSTITUICAO_TRIBUTARIA
 );
 
-let produto04: Produto = new Produto(
+let produto03: Produto = new Produto(
   CODIGO4, 
   DESCRICAO2, 
   UNIDADE, 
@@ -189,11 +168,11 @@ let vendaComDoisItens: Venda = new Venda(
   TIPO_PAGAMENTO1,
   VALOR_PAGAMENTO,   
   new Array<ItemVenda>(item01, item02)
+);
 
-)
-let item03: ItemVenda = new ItemVenda(3, produto03, QUANTIDADE01)
+let item03: ItemVenda = new ItemVenda(3, produto02, QUANTIDADE01)
 
-let item04: ItemVenda = new ItemVenda(4, produto04, QUANTIDADE02)
+let item04: ItemVenda = new ItemVenda(4, produto03, QUANTIDADE02)
 
 let vendaComDoisItensNegativo: Venda = new Venda(
   paramLoja, 
@@ -203,7 +182,7 @@ let vendaComDoisItensNegativo: Venda = new Venda(
   TIPO_PAGAMENTO1,
   VALOR_PAGAMENTO, 
   new Array<ItemVenda>(item03, item04)
-)
+);
 
 let vendaTeste: Venda = new Venda(
   paramLoja, 
@@ -213,18 +192,9 @@ let vendaTeste: Venda = new Venda(
   VALOR_PAGAMENTO,   
   new Array<ItemVenda>(item01)
 
-)
+);
 
-let pagamento_invalido: Venda = new Venda(
-  paramLoja, 
-  DATAHORA,
-  CCF_VENDA, 
-  COO_VENDA, 
-  TIPO_PAGAMENTO1,
-  VALOR_PAGAMENTO,   
-  new Array<ItemVenda>(item01, item02)
-)
-
+//Testes campos obrigatórios
 
 test('ccf vazio', () => {
   let ccf_vazio: Venda = new Venda(paramLoja, DATAHORA, "", COO_VENDA,  TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
@@ -235,6 +205,8 @@ test('coo vazio', () => {
   let coo_vazio: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, "",  TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
     verificaCampoObrigatorio(`O campo COO da venda é obrigatório`, coo_vazio);
 });
+
+// Testes
 
 test('Sem itens', () =>{
   validaImpressao(MENSAGEM_VENDA_SEM_ITENS, venda_sem_itens)
@@ -266,7 +238,6 @@ test('Valida troco', () => {
   let valida_troco: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO3, 100, new Array<ItemVenda>(item01));
     finalizaVenda("89", valida_troco);
 });
-
 
 test('Imprimir cupom com impostos', () => {
     imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO_COM_IMPOSTOS, vendaTeste);

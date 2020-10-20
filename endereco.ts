@@ -18,11 +18,10 @@ export class Endereco {
             throw new Error("O campo município do endereço é obrigatório")
     
         if(this.estado == "")
-            throw new Error("O campo estado do endereço é obrigatório")    
-        
+            throw new Error("O campo estado do endereço é obrigatório")       
     }
 
-    public dados_endereco(): string {
+    public dadosEndereco(): string {
          
         const _logradouro : string = this.logradouro + ", "
         const _numero : string = this.numero? `${this.numero}` : "s/n"

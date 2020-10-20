@@ -32,7 +32,7 @@ export class Loja {
     
     }
 
-    public dados_loja(): string {
+    public dadosLoja(): string {
 
         let _telefone : string = this.telefone? `Tel ${this.telefone}` : ""
         _telefone = this.endereco.cep && _telefone? " " + _telefone : _telefone
@@ -44,7 +44,7 @@ export class Loja {
 
         return(
 `${this.nome_loja}
-${this.endereco.dados_endereco()}${_telefone}
+${this.endereco.dadosEndereco()}${_telefone}
 ${_observacao}
 ${_cnpj}
 ${_inscricao_estadual}
