@@ -6,7 +6,7 @@ import { Produto } from './produto';
 
 function verificaCampoObrigatorio(mensagemEsperada: string, venda: Venda) {
   try {
-    venda.dados_venda();
+    venda.dadosVenda();
   } catch (e) {
     expect(e.message).toBe(mensagemEsperada);
     }
@@ -22,7 +22,7 @@ function validaItem(mensagemEsperada: string, item: Venda, produto: Produto, qua
 
 function validaImpressao(mensagemEsperada: string, venda: Venda) {
   try {
-    venda.imprimir_cupom();
+    venda.imprimirCupom();
   } catch (e) {
     expect(e.message).toBe(mensagemEsperada);
   }
@@ -30,7 +30,7 @@ function validaImpressao(mensagemEsperada: string, venda: Venda) {
 
 function imprimeCupom(mensagemEsperada: string, venda: Venda) {
   try {
-    expect(venda.imprimir_cupom()).toBe(mensagemEsperada);
+    expect(venda.imprimirCupom()).toBe(mensagemEsperada);
   } catch (e) {
     expect(e.message).toBe(mensagemEsperada);
   }
@@ -88,16 +88,6 @@ const VALOR_PAGAMENTO = 100
 
 const DATAHORA = "25/11/2020 10:30:40"
 
-let produto: Produto = new Produto(
-  CODIGO1, 
-  DESCRICAO1, 
-  UNIDADE, 
-  VALOR_UNITARIO1, 
-  SUBSTITUICAO_TRIBUTARIA
-);
-
-
-
 let paramEndereco : Endereco = new Endereco(LOGRADOURO, NUMERO, COMPLEMENTO,
   BAIRRO, MUNICIPIO, ESTADO, CEP);
 
@@ -105,9 +95,7 @@ let paramLoja: Loja = new Loja(NOME_LOJA, paramEndereco, TELEFONE, OBSERVACAO, C
 
 let venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
 
-
 //Mensagens 
-
 const MENSAGEM_VENDA_SEM_ITENS = `Venda sem itens`;
 const MENSAGEM_PRODUTO_DUPLICADO = `Produto duplicado`;
 const MENSAGEM_QUANTIDADE = "Item com quantidade zero ou negativa";
@@ -202,7 +190,7 @@ let vendaComDoisItensNegativo: Venda = new Venda(
   new Array<ItemVenda>(item03, item04)
 )
 
-let vendaTeste: Venda = new Venda(
+let vendaComUmItem: Venda = new Venda(
   paramLoja, 
   DATAHORA,
   CCF_VENDA, COO_VENDA, 
@@ -211,17 +199,6 @@ let vendaTeste: Venda = new Venda(
   new Array<ItemVenda>(item01)
 
 )
-
-let pagamento_invalido: Venda = new Venda(
-  paramLoja, 
-  DATAHORA,
-  CCF_VENDA, 
-  COO_VENDA, 
-  TIPO_PAGAMENTO1,
-  VALOR_PAGAMENTO,   
-  new Array<ItemVenda>(item01, item02)
-)
-
 
 test('ccf vazio', () => {
   let ccf_vazio: Venda = new Venda(paramLoja, DATAHORA, "", COO_VENDA,  TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
@@ -266,5 +243,5 @@ test('Valida troco', () => {
 
 
 test('Imprimir cupom', () => {
-    imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO, vendaTeste);
+    imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO, vendaComUmItem);
 });

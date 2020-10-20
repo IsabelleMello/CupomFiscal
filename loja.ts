@@ -32,7 +32,7 @@ export class Loja {
     
     }
 
-    public dados_loja(): string {
+    public dadosLoja(): string {
 
         let _telefone : string = this.telefone? `Tel ${this.telefone}` : ""
         _telefone = this.endereco.cep && _telefone? " " + _telefone : _telefone
