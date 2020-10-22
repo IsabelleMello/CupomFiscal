@@ -129,7 +129,7 @@ export class Venda {
         let total = this.valorTotal();
         let cupom = `${dadosLoja}------------------------------
 ${dadosVenda}
-CUPOM FISCAL
+    CUPOM FISCAL
 ${this.dadosItens()}------------------------------
 TOTAL R$ ${total.toFixed(2)}
 Dinheiro ${this.valorPagamento.toFixed(2)}
