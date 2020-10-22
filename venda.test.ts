@@ -71,11 +71,11 @@ const QUANTIDADE02 = 5
 const UNIDADE= "cx"
 const SUBSTITUICAO_TRIBUTARIA = "ST" 
 const CODIGO1 = 100
-const DESCRICAO1 = "Maçã"
+const DESCRICAO1 = "Banana"
 const VALOR_UNITARIO1 = 7.45
 const VALOR_UNITARIO3 = -2
 const CODIGO2 = 101
-const DESCRICAO2 = "Banana"
+const DESCRICAO2 = "Laranja"
 const VALOR_UNITARIO2 = 3.32
 const CODIGO3 = 3
 const CODIGO4 = 4
@@ -87,15 +87,6 @@ const TIPO_PAGAMENTO3 = "dinheiro"
 const VALOR_PAGAMENTO = 100
 
 const DATAHORA = "25/11/2020 10:30:40"
-
-let produto: Produto = new Produto(
-  CODIGO1, 
-  DESCRICAO1, 
-  UNIDADE, 
-  VALOR_UNITARIO1, 
-  SUBSTITUICAO_TRIBUTARIA
-);
-
 
 
 let paramEndereco : Endereco = new Endereco(LOGRADOURO, NUMERO, COMPLEMENTO,
@@ -126,7 +117,7 @@ IE: 123456789
 25/11/2020 10:30:40V CCF:021784 COO: 035804
     CUPOM FISCAL
 ITEM CODIGO DESCRICAO QTD UN VL UNIT(R$) ST VL ITEM(R$)
-1 100 Maçã 10 cx 7.45 ST 74.50
+1 100 Banana 10 cx 7.45 ST 74.50
 ------------------------------
 TOTAL R$ 74.50
 Dinheiro 100.00
@@ -138,8 +129,6 @@ OPERADOR: 494715
 SWEDA IF ST200
 ECF-IF VERSÃO: 01.00.05 ECF: 067
 FAB: SW031300000000045629`
-
-
 
 
 let venda_sem_itens: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
@@ -201,6 +190,7 @@ let item03: ItemVenda = new ItemVenda(3, produto03, QUANTIDADE01)
 
 let item04: ItemVenda = new ItemVenda(4, produto04, QUANTIDADE02)
 
+
 let vendaComDoisItensNegativo: Venda = new Venda(
   paramLoja, 
   DATAHORA,
@@ -220,17 +210,6 @@ let vendaTeste: Venda = new Venda(
   new Array<ItemVenda>(item01)
 
 )
-
-let pagamento_invalido: Venda = new Venda(
-  paramLoja, 
-  DATAHORA,
-  CCF_VENDA, 
-  COO_VENDA, 
-  TIPO_PAGAMENTO1,
-  VALOR_PAGAMENTO,   
-  new Array<ItemVenda>(item01, item02)
-)
-
 
 test('ccf vazio', () => {
   let ccf_vazio: Venda = new Venda(paramLoja, DATAHORA, "", COO_VENDA,  TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
