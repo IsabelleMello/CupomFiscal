@@ -28,4 +28,5 @@ export class ItemVenda {
         public dados_item(): string {
             return `${this.item} ${this.produto.codigo} ${this.produto.descricao} ${this.quantidade} ${this.produto.unidade} ${this.produto.valorUnitario} ${this.produto.substituicaoTributaria} ${this.valorItem().toFixed(2)}`;
           }
+
       }

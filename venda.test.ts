@@ -118,11 +118,12 @@ IE: 123456789
     CUPOM FISCAL
 ITEM CODIGO DESCRICAO QTD UN VL UNIT(R$) ST VL ITEM(R$)
 1 100 Banana 10 cx 7.45 ST 74.50
+2 101 Laranja 5 cx 3.32 ST 16.60
 ------------------------------
-TOTAL R$ 74.50
+TOTAL R$ 91.10
 Dinheiro 100.00
-Troco R$ 25.50
-Lei 12.741, Valor aprox., Imposto F=5.62 (7.54%), E=3.58 (4.81%)
+Troco R$ 8.90
+Lei 12.741, Valor aprox., Imposto F=6.87 (7.54%), E=4.38 (4.81%)
 ------------------------------
 OPERADOR: 494715
 ------------------------------
@@ -190,6 +191,8 @@ let item03: ItemVenda = new ItemVenda(3, produto03, QUANTIDADE01)
 
 let item04: ItemVenda = new ItemVenda(4, produto04, QUANTIDADE02)
 
+let item05: ItemVenda = new ItemVenda(2, produto02, QUANTIDADE02)
+
 
 let vendaComDoisItensNegativo: Venda = new Venda(
   paramLoja, 
@@ -207,7 +210,7 @@ let vendaTeste: Venda = new Venda(
   CCF_VENDA, COO_VENDA, 
   TIPO_PAGAMENTO3,
   VALOR_PAGAMENTO,   
-  new Array<ItemVenda>(item01)
+  new Array<ItemVenda>(item01, item05)
 
 )
 
