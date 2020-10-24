@@ -12,6 +12,14 @@ function verificaCampoObrigatorio(mensagemEsperada: string, venda: Venda) {
     }
 }
 
+function verificaCampoObrigatorioProduto(mensagemEsperada: string, produto: Produto) {
+  try {
+    produto.dadosProduto();
+  } catch (e) {
+    expect(e.message).toBe(mensagemEsperada);
+    }
+}
+
 function validaItem(mensagemEsperada: string, item: Venda, produto: Produto, quantidade: number) {
   try {
     venda.adicionarItem(item, produto, quantidade);
@@ -209,6 +217,32 @@ test('coo vazio', () => {
   let coo_vazio: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, "",  TIPO_PAGAMENTO1, VALOR_PAGAMENTO);
     verificaCampoObrigatorio(`O campo COO da venda é obrigatório`, coo_vazio);
 });
+
+test('Produto código inválido', () =>{
+  let codigoInvalido: Produto = new Produto(0, DESCRICAO1, UNIDADE, VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo código do produto é obrigatório`, codigoInvalido);
+});
+
+test('Produto sem descrição', () =>{
+  let semDescricao: Produto = new Produto(CODIGO1, "", UNIDADE, VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo descrição do produto é obrigatório`, semDescricao);
+});
+
+test('Produto sem unidade', () =>{
+  let semUnidade: Produto = new Produto(CODIGO1, DESCRICAO1, "", VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo unidade do produto é obrigatório`, semUnidade);
+});
+
+test('Produto valor unitário inválido', () =>{
+  let valorUnitarioInvalido: Produto = new Produto(CODIGO1, DESCRICAO1, UNIDADE, 0, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo valor unitário do produto é obrigatório`, valorUnitarioInvalido);
+});
+
+test('Produto sem substituição tributária', () =>{
+  let semSubstituicaoTributaria: Produto = new Produto(CODIGO1, DESCRICAO1, UNIDADE, VALOR_UNITARIO1, "");
+  verificaCampoObrigatorioProduto(`O campo substituição tributária é obrigatório`, semSubstituicaoTributaria);
+});
+
 
 test('Sem itens', () =>{
   validaImpressao(MENSAGEM_VENDA_SEM_ITENS, venda_sem_itens)
