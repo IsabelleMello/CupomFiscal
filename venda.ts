@@ -42,10 +42,10 @@ export class Venda {
             throw new Error(`O campo datahora da venda é obrigatório`)
         
         if(this.ccf == "")
-            throw new Error("O campo CCF da venda é obrigatório")
+            throw new Error(`O campo CCF da venda é obrigatório`)
       
         if(this.coo == "")
-            throw new Error("O campo COO da venda é obrigatório")
+            throw new Error(`O campo COO da venda é obrigatório`)
         
         }
 

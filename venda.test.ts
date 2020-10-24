@@ -12,6 +12,14 @@ function verificaCampoObrigatorio(mensagemEsperada: string, venda: Venda) {
     }
 }
 
+function verificaCampoObrigatorioProduto(mensagemEsperada: string, produto: Produto) {
+  try {
+    produto.dadosProduto();
+  } catch (e) {
+    expect(e.message).toBe(mensagemEsperada);
+    }
+}
+
 function validaItem(mensagemEsperada: string, item: Venda, produto: Produto, quantidade: number) {
   try {
     venda.adicionarItem(item, produto, quantidade);
@@ -99,8 +107,8 @@ let venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO1
 
 //Mensagens 
 
-const MENSAGEM_VENDA_SEM_ITENS = `Venda sem itens`;
-const MENSAGEM_PRODUTO_DUPLICADO = `Produto duplicado`;
+const MENSAGEM_VENDA_SEM_ITENS = "Venda sem itens";
+const MENSAGEM_PRODUTO_DUPLICADO = "Produto duplicado";
 const MENSAGEM_QUANTIDADE = "Item com quantidade zero ou negativa";
 const MENSAGEM_VALOR_PRODUTO = "Produto com valor unitário zero ou negativo";
 const MENSAGEM_VALIDA_PAGAMENTO = "Tipo de pagamento inválido";
@@ -224,6 +232,31 @@ test('coo vazio', () => {
     verificaCampoObrigatorio(`O campo COO da venda é obrigatório`, coo_vazio);
 });
 
+test('Produto código inválido', () =>{
+  let codigoInvalido: Produto = new Produto(0, DESCRICAO1, UNIDADE, VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo código do produto é obrigatório`, codigoInvalido);
+});
+
+test('Produto sem descrição', () =>{
+  let semDescricao: Produto = new Produto(CODIGO1, "", UNIDADE, VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo descrição do produto é obrigatório`, semDescricao);
+});
+
+test('Produto sem unidade', () =>{
+  let semUnidade: Produto = new Produto(CODIGO1, DESCRICAO1, "", VALOR_UNITARIO1, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo unidade do produto é obrigatório`, semUnidade);
+});
+
+test('Produto valor unitário inválido', () =>{
+  let valorUnitarioInvalido: Produto = new Produto(CODIGO1, DESCRICAO1, UNIDADE, 0, SUBSTITUICAO_TRIBUTARIA);
+  verificaCampoObrigatorioProduto(`O campo valor unitário do produto é obrigatório`, valorUnitarioInvalido);
+});
+
+test('Produto sem substituição tributária', () =>{
+  let semSubstituicaoTributaria: Produto = new Produto(CODIGO1, DESCRICAO1, UNIDADE, VALOR_UNITARIO1, "");
+  verificaCampoObrigatorioProduto(`O campo substituição tributária é obrigatório`, semSubstituicaoTributaria);
+});
+
 test('Sem itens', () =>{
   validaImpressao(MENSAGEM_VENDA_SEM_ITENS, venda_sem_itens)
 });
@@ -254,7 +287,6 @@ test('Valida troco', () => {
   let valida_troco: Venda = new Venda(paramLoja, DATAHORA, CCF_VENDA, COO_VENDA, TIPO_PAGAMENTO3, 100, new Array<ItemVenda>(item01));
     finalizaVenda("89", valida_troco);
 });
-
 
 test('Imprimir cupom fiscal completo', () => {
     imprimeCupom(TEXTO_ESPERADO_CUPOM_COMPLETO, vendaTeste);

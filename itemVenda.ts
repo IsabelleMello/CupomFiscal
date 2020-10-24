@@ -11,13 +11,13 @@ export class ItemVenda {
     public verificaCampoObrigatorio(): void {
         
         if(this.item == 0)
-            throw new Error("O campo item da venda é obrigatório")
+            throw new Error(`O campo item da venda é obrigatório`)
       
         if(this.produto == null)
-            throw new Error("O campo produto da venda é obrigatório")
+            throw new Error(`O campo produto da venda é obrigatório`)
 
         if(this.quantidade == 0)
-            throw new Error("O campo quantidade da venda é obrigatório")
+            throw new Error(`O campo quantidade da venda é obrigatório`)
 
         }
 
